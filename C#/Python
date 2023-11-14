@@ -1,16 +1,18 @@
 import json
 
+# Definición de la clase Tarea
 class Tarea:
-    def _init_(self, descripcion, completada=False):
+    def __init__(self, descripcion, completada=False):
         self.descripcion = descripcion
         self.completada = completada
 
-    def _str_(self):
+    def __str__(self):
         estado = "Completada" if self.completada else "Pendiente"
         return f"Tarea: {self.descripcion} ({estado})"
 
+# Definición de la clase GestorTareas
 class GestorTareas:
-    def _init_(self, nombre_archivo):
+    def __init__(self, nombre_archivo):
         self.nombre_archivo = nombre_archivo
         self.tareas = self.cargar_tareas()
 
@@ -23,7 +25,7 @@ class GestorTareas:
         return [Tarea(**t) for t in tareas]
 
     def guardar_tareas(self):
-        tareas_serializadas = [t._dict_ for t in self.tareas]
+        tareas_serializadas = [t.__dict__ for t in self.tareas]
         with open(self.nombre_archivo, 'w') as file:
             json.dump(tareas_serializadas, file, indent=2)
 
